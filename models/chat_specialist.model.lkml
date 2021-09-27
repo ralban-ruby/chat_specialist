@@ -3,6 +3,8 @@ connection: "elt_connector"
 include: "*.view"
 
 explore: chat_scorecard_rollup {
+  access_filter: {field:primarylink.employeeid
+    user_attribute:employee_id}
   join: primarylink {
     relationship: one_to_one
     type: left_outer
@@ -11,6 +13,8 @@ explore: chat_scorecard_rollup {
 }
 
 explore: topbar {
+  access_filter: {field:primarylink.employeeid
+    user_attribute:employee_id}
   join: primarylink {
     relationship: one_to_one
     type: left_outer
@@ -19,6 +23,8 @@ explore: topbar {
 }
 
 explore: avail {
+  access_filter: {field:primarylink.employeeid
+    user_attribute:employee_id}
   join: primarylink {
     relationship: one_to_one
     type: left_outer
@@ -27,6 +33,8 @@ explore: avail {
 }
 
 explore: brb {
+  access_filter: {field:primarylink.employeeid
+    user_attribute:employee_id}
   join: primarylink {
     relationship: one_to_one
     type: left_outer
@@ -35,6 +43,8 @@ explore: brb {
 }
 
 explore: wrapping_up {
+  access_filter: {field:primarylink.employeeid
+    user_attribute:employee_id}
   join: primarylink {
     relationship: one_to_one
     type: left_outer
@@ -43,6 +53,8 @@ explore: wrapping_up {
 }
 
 explore: recognitions_given {
+  access_filter: {field:primarylink.employeeid
+    user_attribute:employee_id}
   join: primarylink {
     relationship: one_to_one
     type: left_outer
@@ -51,6 +63,8 @@ explore: recognitions_given {
 }
 
 explore: recognitions_received {
+  access_filter: {field:primarylink.employeeid
+    user_attribute:employee_id}
   join: primarylink {
     relationship: many_to_one
     type: left_outer
