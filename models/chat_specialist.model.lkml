@@ -74,6 +74,24 @@ explore: recognitions_received {
 
 explore: status_by_day {}
 
+explore: pc_quality_scorecard_factv2{
+  label: "Chat Service Quality Scorecards"
+  view_label: "Chat Scorecards"
+  join: employee_lookup_all {
+    view_label: "Employee Info"
+    relationship: many_to_one
+    type: full_outer
+    sql_on:  ${pc_quality_scorecard_factv2.chatspecialistempcode} = ${employee_lookup_all.employeeid};;
+  }
+  join: aspect_superstatehours_fact {
+    view_label: "Aspect Superstate Hours"
+    relationship: many_to_many
+    type: full_outer
+    sql_on: TO_CHAR(${pc_quality_scorecard_factv2.chatspecialistempcode}) = TO_CHAR(${aspect_superstatehours_fact.employeecode})
+      and ${pc_quality_scorecard_factv2.submittime_date} = ${aspect_superstatehours_fact.nominal_date} ;;
+  }
+}
+
 datagroup: chat_specialist_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
