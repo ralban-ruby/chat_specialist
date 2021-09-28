@@ -1,5 +1,5 @@
 view: prochats_opportunity_fact {
-  sql_table_name: "PEARL_EDW_PC"."PROCHATS_OPPORTUNITY_FACT"
+  sql_table_name: "FIVETRAN_DB"."PEARL_EDW_PC"."PROCHATS_OPPORTUNITY_FACT"
     ;;
   drill_fields: [id]
 

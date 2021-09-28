@@ -1,5 +1,5 @@
 view: employee_lookup_all {
-  sql_table_name: "PEARL_EDW_OPS"."EMPLOYEE_LOOKUP_ALL"
+  sql_table_name: "FIVETRAN_DB"."PEARL_EDW_OPS"."EMPLOYEE_LOOKUP_ALL"
     ;;
 
   dimension: _fivetran_deleted {

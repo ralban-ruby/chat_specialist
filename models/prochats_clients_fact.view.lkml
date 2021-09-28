@@ -1,5 +1,5 @@
 view: prochats_clients_fact {
-  sql_table_name: "PEARL_EDW_PC"."PROCHATS_CLIENTS_FACT"
+  sql_table_name: "FIVETRAN_DB"."PEARL_EDW_PC"."PROCHATS_CLIENTS_FACT"
     ;;
   drill_fields: [client_id,name,chat_provider_name,created_date,new_prl_id,pro_chats_id]
 

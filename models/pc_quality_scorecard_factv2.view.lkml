@@ -1,5 +1,5 @@
 view: pc_quality_scorecard_factv2 {
-  sql_table_name: "PEARL_EDW_PC"."PC_QUALITY_SCORECARD_FACTV2"
+  sql_table_name: "FIVETRAN_DB"."PEARL_EDW_PC"."PC_QUALITY_SCORECARD_FACTV2"
     ;;
   drill_fields: [id,submittime_date,chatspecialistname,evaluatoruser,score,scoresummary]
 

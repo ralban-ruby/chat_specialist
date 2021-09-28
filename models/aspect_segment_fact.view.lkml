@@ -1,5 +1,5 @@
 view: aspect_segment_fact {
-  sql_table_name: "PEARL_EDW_WFM"."ASPECT_SEGMENT_FACT"
+  sql_table_name: "FIVETRAN_DB"."PEARL_EDW_WFM"."ASPECT_SEGMENT_FACT"
     ;;
   drill_fields: [aspect_segment_fact_id]
 

@@ -1,5 +1,5 @@
 view: prochats_chat_agent_stats {
-  sql_table_name: "PEARL_EDW_PC"."PROCHATS_CHAT_AGENT_STATS"
+  sql_table_name: "FIVETRAN_DB"."PEARL_EDW_PC"."PROCHATS_CHAT_AGENT_STATS"
     ;;
   drill_fields: [id]
 

@@ -1,5 +1,5 @@
 view: pc_email_lookup {
-  sql_table_name: "PEARL_EDW_PC"."PC_EMAIL_LOOKUP"
+  sql_table_name: "FIVETRAN_DB"."PEARL_EDW_PC"."PC_EMAIL_LOOKUP"
     ;;
 
   dimension: _fivetran_deleted {

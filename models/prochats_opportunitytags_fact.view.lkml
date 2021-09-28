@@ -1,5 +1,5 @@
 view: prochats_opportunitytags_fact {
-  sql_table_name: "PEARL_EDW_PC"."PROCHATS_OPPORTUNITYTAGS_FACT"
+  sql_table_name: "FIVETRAN_DB"."PEARL_EDW_PC"."PROCHATS_OPPORTUNITYTAGS_FACT"
     ;;
 
   dimension: _fivetran_deleted {
