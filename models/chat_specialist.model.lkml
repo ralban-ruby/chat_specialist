@@ -75,6 +75,8 @@ explore: recognitions_received {
 explore: status_by_day {}
 
 explore: pc_quality_scorecard_factv2{
+  access_filter: {field:employee_lookup_all.employeeid
+    user_attribute:employee_id}
   label: "Chat Service Quality Scorecards"
   view_label: "Chat Scorecards"
   join: employee_lookup_all {
@@ -93,6 +95,8 @@ explore: pc_quality_scorecard_factv2{
 }
 
 explore: prochats_opportunity_fact {
+  access_filter: {field:employee_lookup_all.employeeid
+    user_attribute:employee_id}
   label: "Chats"
   view_label: "ProChats Online Opportunity"
   sql_always_where: ${_fivetran_deleted} <> 'yes';;

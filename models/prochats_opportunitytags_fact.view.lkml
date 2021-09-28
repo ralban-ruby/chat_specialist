@@ -4,11 +4,13 @@ view: prochats_opportunitytags_fact {
 
   dimension: _fivetran_deleted {
     type: yesno
+    hidden: yes
     sql: ${TABLE}."_FIVETRAN_DELETED" ;;
   }
 
   dimension_group: _fivetran_synced {
     type: time
+    hidden: yes
     timeframes: [
       raw,
       time,
@@ -23,6 +25,7 @@ view: prochats_opportunitytags_fact {
 
   dimension_group: createdate {
     type: time
+    hidden: yes
     timeframes: [
       raw,
       time,
@@ -47,7 +50,31 @@ view: prochats_opportunitytags_fact {
   }
 
   measure: count {
-    type: count
-    drill_fields: []
+    type: count_distinct
+    sql: ${TABLE}."OPPORTUNITYID" ;;
   }
+
+  measure: count_conversion {
+    hidden: yes
+    type: count_distinct
+    sql: CASE WHEN  ${TABLE}."VALUE"ILIKE 'lead' THEN ${TABLE}."OPPORTUNITYID" ELSE NULL END;;
+  }
+
+  measure: conversion {
+    type: number
+    value_format_name: percent_0
+    sql: ${count_conversion} / ${count};;
+  }
+
+  drill_fields: [prochats_chat_agent_stats.chat_id,
+    opportunityid,
+    createdate_time,
+    prochats_chat_agent_stats.agent_id,
+    pc_email_lookup.name,
+    prochats_chat_agent_stats.avg_queue_time,
+    prochats_chat_agent_stats.avg_rate,
+    prochats_chat_agent_stats.sum_duration,
+    prochats_chat_agent_stats.avg_first_response,
+    prochats_chat_agent_stats.avg_response,
+    prochats_chat_agent_stats.agent_id,value]
 }
