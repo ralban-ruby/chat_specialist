@@ -12,6 +12,9 @@ explore: chat_scorecard_rollup {
   }
 }
 
+explore: chat_duration {
+}
+
 explore: topbar {
   access_filter: {field:primarylink.employeeid
     user_attribute:employee_id}
