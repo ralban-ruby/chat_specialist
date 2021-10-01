@@ -7,11 +7,6 @@ view: chat_duration {
     sql: ${TABLE}."CHAT" ;;
   }
 
-  dimension: chat_agents {
-    type: string
-    sql: ${TABLE}."CHAT_AGENTS" ;;
-  }
-
   dimension: chat_duration_datediff_min {
     type: number
     sql: ${TABLE}."CHAT_DURATION_DATEDIFF_MIN" ;;
@@ -20,6 +15,11 @@ view: chat_duration {
   dimension: chat_duration_datediff_sec {
     type: number
     sql: ${TABLE}."CHAT_DURATION_DATEDIFF_SEC" ;;
+  }
+
+  dimension: chat_session_id {
+    type: number
+    sql: ${TABLE}."CHAT_SESSION_ID" ;;
   }
 
   dimension: closed_end_duration_datediff_min {
@@ -33,7 +33,6 @@ view: chat_duration {
   }
 
   dimension_group: closed_time_utc {
-    convert_tz: yes
     type: time
     timeframes: [
       raw,
@@ -47,38 +46,17 @@ view: chat_duration {
     sql: CAST(${TABLE}."CLOSED_TIME_UTC" AS TIMESTAMP_NTZ) ;;
   }
 
-  dimension: company_guid {
-    type: string
-    sql: ${TABLE}."COMPANY_GUID" ;;
-  }
-
-  dimension: company_id {
-    type: number
-    sql: ${TABLE}."COMPANY_ID" ;;
-  }
-
   dimension: company_name {
     type: string
     sql: ${TABLE}."COMPANY_NAME" ;;
   }
 
-  dimension_group: end_time_utc {
-    convert_tz: yes
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: CAST(${TABLE}."END_TIME_UTC" AS TIMESTAMP_NTZ) ;;
+  dimension: employee_email {
+    type: string
+    sql: ${TABLE}."EMPLOYEE_EMAIL" ;;
   }
 
   dimension_group: start_time_utc {
-    convert_tz: yes
     type: time
     timeframes: [
       raw,
@@ -90,6 +68,20 @@ view: chat_duration {
       year
     ]
     sql: CAST(${TABLE}."START_TIME_UTC" AS TIMESTAMP_NTZ) ;;
+  }
+
+  dimension_group: stop_time_utc {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: CAST(${TABLE}."STOP_TIME_UTC" AS TIMESTAMP_NTZ) ;;
   }
 
   measure: count {
