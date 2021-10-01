@@ -7,6 +7,12 @@ view: chat_duration {
     sql: ${TABLE}."CHAT" ;;
   }
 
+  dimension: chat_duration_tier {
+    type: tier
+    tiers: [0,10,20,50,100,200,300,400,500,600,700,800,900,1000,2000]
+    sql: ${TABLE}."CLOSED_END_DURATION_DATEDIFF_MIN" ;;
+  }
+
   dimension: chat_duration_datediff_min {
     type: number
     sql: ${TABLE}."CHAT_DURATION_DATEDIFF_MIN" ;;
