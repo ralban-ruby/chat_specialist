@@ -1,5 +1,5 @@
 view: pc_quality_scorecard_factv2 {
-  sql_table_name: "PEARL_EDW_PC"."PC_QUALITY_SCORECARD_FACTV2"
+  sql_table_name: "FIVETRAN_DB"."PEARL_EDW_PC"."PC_QUALITY_SCORECARD_FACTV2"
     ;;
   drill_fields: [id,submittime_date,chatspecialistname,evaluatoruser,score,scoresummary]
 
@@ -94,11 +94,6 @@ view: pc_quality_scorecard_factv2 {
     sql: ${TABLE}."SCORESUMMARY" ;;
   }
 
-  dimension: score_dim {
-    type: number
-    sql:  ${TABLE}."SCORE" ;;
-  }
-
   dimension_group: submittime {
     label: "Created"
     type: time
@@ -145,17 +140,9 @@ view: pc_quality_scorecard_factv2 {
     sql: DateDiff("day",${employee_lookup_all.hire_date},${submittime_date});;
   }
 
-  dimension: tenure_tier1 {
-    group_label: "Tenure Tier"
-    label: "By Tier"
-    style: integer
-    type: tier
-    tiers: [0,60,120]
-    sql: DateDiff("day",${employee_lookup_all.hire_date},${submittime_date});;
-  }
 
   dimension: count_scored {
-    #hidden: yes
+    hidden: yes
     type: number
     sql: (CASE WHEN ${TABLE}."Q1" IS NULL THEN 0 ELSE 1 END) +
         (CASE WHEN ${TABLE}."Q2" IS NULL THEN 0 ELSE 1 END) +
@@ -170,7 +157,7 @@ view: pc_quality_scorecard_factv2 {
   }
 
   dimension: sum_scored {
-    #hidden: yes
+    hidden: yes
     type: number
     sql: IFNULL(${TABLE}."Q1",0)+IFNULL(${TABLE}."Q2",0)+
          IFNULL(${TABLE}."Q3",0)+IFNULL(${TABLE}."Q4",0)+IFNULL(${TABLE}."Q5",0)+
@@ -179,13 +166,13 @@ view: pc_quality_scorecard_factv2 {
   }
 
   measure: sum_count_scored {
-    #hidden: yes
+    hidden: yes
     type: sum
     sql: ${count_scored} ;;
   }
 
   measure: sum_sum_scored {
-    #hidden: yes
+    hidden: yes
     type: sum
     sql: ${sum_scored} ;;
   }
@@ -193,47 +180,8 @@ view: pc_quality_scorecard_factv2 {
   measure: score {
     type: number
     value_format_name: percent_0
-    sql: ${sum_sum_scored}/${sum_count_scored} ;;
+    sql: ${sum_sum_scored}/NULLIF(${sum_count_scored},0) ;;
   }
-
-  measure: count_of_score {
-    type: number
-    sql: COUNT(${score_dim}) ;;
-  }
-
-  measure: sum_of_score {
-    type: sum
-    sql: ${score_dim} ;;
-  }
-
-  measure: avg_of_score {
-    type: number
-    value_format_name: percent_0
-    sql: ${sum_of_score}/${count_of_score};;
-  }
-
-  dimension: SQR_goal {
-    type :  string
-    case: {
-      when: {
-        sql: ${tenure_day}>= 0 and ${tenure_day} < 60 ;;
-        label: "85% or above"
-      }
-      when: {
-        sql:${tenure_day}>= 60 and ${tenure_day} < 120 ;;
-        label: "87% or above"
-      }
-      when: {
-        sql: ${tenure_day} >= 120 ;;
-        label: "90% or above"
-      }
-      when: {
-        sql: ${tenure_day} < 0 ;;
-        label: "NA"
-      }
-    }
-  }
-
   measure: count {
     type: count_distinct
     sql: ${id} ;;
