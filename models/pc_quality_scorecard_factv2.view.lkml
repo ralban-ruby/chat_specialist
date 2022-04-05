@@ -94,6 +94,11 @@ view: pc_quality_scorecard_factv2 {
     sql: ${TABLE}."SCORESUMMARY" ;;
   }
 
+  dimension: score_dim {
+    type: number
+    sql:  ${TABLE}."SCORE" ;;
+  }
+
   dimension_group: submittime {
     label: "Created"
     type: time
@@ -182,6 +187,23 @@ view: pc_quality_scorecard_factv2 {
     value_format_name: percent_0
     sql: ${sum_sum_scored}/NULLIF(${sum_count_scored},0) ;;
   }
+
+  measure: count_of_score {
+    type: number
+    sql: COUNT(${score_dim}) ;;
+  }
+
+  measure: sum_of_score {
+    type: sum
+    sql: ${score_dim} ;;
+  }
+
+  measure: avg_of_score {
+    type: number
+    value_format_name: percent_0
+    sql: ${sum_of_score}/${count_of_score};;
+  }
+
   measure: count {
     type: count_distinct
     sql: ${id} ;;
